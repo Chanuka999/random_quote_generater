@@ -1,10 +1,20 @@
-import "./styles.css";
-
-export default function App() {
+const App = () => {
+  const getQuotes = async () => {
+    try {
+      const res = await fetch("https://api.quotable.io/quotes/random");
+      const data = await res.json();
+      console.log(data);
+      console.log(data[0].author);
+      console.log(data[0].content);
+    } catch {
+      console.error("Error fetching quotes", error);
+    }
+  };
   return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-    </div>
+    <>
+      <h1>Lets get motivated by reading quotes</h1>
+      <button onClick={getQuotes}>New Quotes</button>
+    </>
   );
-}
+};
+export default App;

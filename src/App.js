@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const [quote, setQuote] = useState("");
@@ -20,6 +20,11 @@ const App = () => {
       console.error("Error fetching quotes", error);
     }
   };
+
+  useEffect(function () {
+    getQuotes();
+  }, []);
+
   return (
     <>
       <h1>{quote}</h1>
@@ -28,10 +33,18 @@ const App = () => {
         {author}
       </p>
       <button onClick={getQuotes}>New Quotes</button>
-      <p>
-        You have read <strong>{count}</strong>quotes
-      </p>
+      <Message count={count} />
     </>
+  );
+};
+
+const Message = (props) => {
+  return (
+    <div>
+      <p>
+        You have read <strong>{props.count}</strong>quotes
+      </p>
+    </div>
   );
 };
 export default App;
